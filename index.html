@@ -44,7 +44,8 @@ nav {
   display: flex;
   justify-content: center;
   gap: 48px;
-  padding: 16px 0 12px;
+  padding: 14px 16px 12px;
+  flex-wrap: wrap;
 }
 
 nav a {
@@ -55,6 +56,7 @@ nav a {
   text-decoration: none;
   position: relative;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 nav a::after {
@@ -162,7 +164,6 @@ h2 {
   gap: 8px;
 }
 
-/* Project title link — no underline by default, slides in on hover */
 .project-item h3 a {
   color: var(--ink);
   text-decoration: none;
@@ -197,7 +198,6 @@ h2 {
   transform: translateX(4px);
 }
 
-/* Even items are right-aligned — underline grows from right */
 .project-item:nth-child(even) h3 {
   justify-content: flex-end;
   flex-direction: row-reverse;
@@ -337,45 +337,139 @@ footer {
   background: #111;
   color: #aaa;
   text-align: center;
-  padding: 24px;
+  padding: 24px 16px;
   font-family: 'Kalam', cursive;
   font-size: 16px;
   margin-top: 80px;
 }
 
-/* MOBILE */
+/* ─────────────────────────────────────────
+   TABLET  ≤ 900px
+───────────────────────────────────────── */
 @media (max-width: 900px) {
+  .container {
+    padding: 100px 32px 60px;
+  }
+
   .project-media {
-    flex: 0 0 420px;
-    width: 420px;
+    flex: 0 0 340px;
+    width: 340px;
+  }
+
+  .project-item h3 {
+    font-size: 30px;
   }
 }
 
+/* ─────────────────────────────────────────
+   MOBILE  ≤ 700px  — force everything to column
+───────────────────────────────────────── */
 @media (max-width: 700px) {
-  nav { gap: 20px; }
-  .header h1 { font-size: 50px; }
+  /* Nav */
+  nav {
+    gap: 10px 18px;
+    padding: 10px 16px 8px;
+  }
+  nav a { font-size: 18px; }
 
+  /* Container */
+  .container { padding: 76px 18px 56px; }
+
+  /* Header */
+  .header { margin-bottom: 50px; }
+  .header h1 { font-size: 40px; }
+  .subtitle  { font-size: 20px; }
+  .tagline   { font-size: 16px; }
+
+  /* Section titles */
+  h2 { font-size: 34px; margin-top: 56px; letter-spacing: 1px; }
+  .section-intro { font-size: 16px; margin-bottom: 30px; }
+
+  /* ── PROJECTS: single-column, text first, video second ── */
   .project-item,
+  .project-item:nth-child(odd),
   .project-item:nth-child(even) {
-    flex-direction: column;
-    align-items: stretch;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 16px;
+    margin-bottom: 44px;
+    padding-bottom: 36px;
   }
 
-  .project-media {
-    flex: none;
-    width: 100%;
-  }
-
+  /* Text block: always full-width, always left-aligned */
+  .project-text,
   .project-item:nth-child(even) .project-text {
-    text-align: left;
+    width: 100% !important;
+    text-align: left !important;
+    order: 1;
   }
 
-  .project-item:nth-child(even) .project-why {
-    border-left: 2px solid var(--ink);
-    border-right: none;
-    padding-left: 12px;
-    padding-right: 0;
+  /* Media block: always full-width, always below text */
+  .project-media,
+  .project-item:nth-child(even) .project-media {
+    flex: none !important;
+    width: 100% !important;
+    order: 2;
   }
+
+  /* Reset border/padding on even items */
+  .project-item:nth-child(even) .project-why {
+    border-left: 2px solid var(--ink) !important;
+    border-right: none !important;
+    padding-left: 12px !important;
+    padding-right: 0 !important;
+  }
+
+  /* Reset title direction on even items */
+  .project-item:nth-child(even) h3,
+  .project-item h3 {
+    font-size: 26px;
+    justify-content: flex-start !important;
+    flex-direction: row !important;
+  }
+
+  .project-item:nth-child(even) h3 a::after {
+    left: 0 !important;
+    right: auto !important;
+  }
+
+  .project-item:nth-child(even) h3:hover .arrow {
+    transform: translateX(4px) !important;
+  }
+
+  .project-item h3 .arrow { font-size: 17px; }
+
+  .project-type,
+  .project-focus,
+  .project-why { font-size: 14px; }
+  .project-desc { font-size: 15px; }
+
+  /* About */
+  .about p { font-size: 15px; }
+
+  /* Skills */
+  .skills-category h4 { font-size: 22px; }
+  .skills-flow        { font-size: 15px; }
+  .skill-note         { font-size: 13px; }
+
+  /* Contact */
+  .contact-line {
+    font-size: 15px;
+    word-break: break-all;
+  }
+
+  footer { font-size: 13px; padding: 20px 14px; }
+}
+
+/* ─────────────────────────────────────────
+   VERY SMALL  ≤ 380px
+───────────────────────────────────────── */
+@media (max-width: 380px) {
+  nav { gap: 8px 12px; }
+  nav a { font-size: 16px; }
+  .header h1 { font-size: 34px; }
+  .container { padding: 70px 14px 48px; }
 }
 </style>
 </head>
@@ -412,7 +506,9 @@ footer {
       </div>
       <div class="project-media">
         <div class="media-placeholder">
-          <video src="projvideos/Blood Bridge.mp4" autoplay loop muted playsinline></video>
+          <video autoplay loop muted playsinline preload="none">
+            <source src="https://res.cloudinary.com/dy2f3cngu/video/upload/q_auto/f_auto/v1776878163/Blood_Bridge_gvnzyw.mov" type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
@@ -427,7 +523,9 @@ footer {
       </div>
       <div class="project-media">
         <div class="media-placeholder">
-          <video src="projvideos/My Only Saviour.mp4" autoplay loop muted playsinline></video>
+          <video autoplay loop muted playsinline preload="none">
+            <source src="https://res.cloudinary.com/dy2f3cngu/video/upload/q_auto/f_auto/v1776877993/My_Only_Saviour_vnmlpo.mov" type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
@@ -442,7 +540,9 @@ footer {
       </div>
       <div class="project-media">
         <div class="media-placeholder">
-          <video src="projvideos/Cosmic Tracker.mp4" autoplay loop muted playsinline></video>
+          <video autoplay loop muted playsinline preload="none">
+            <source src="https://res.cloudinary.com/dy2f3cngu/video/upload/q_auto/f_auto/v1776878432/Cosmic_Tracker_bzvhrc.mov" type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
@@ -457,7 +557,9 @@ footer {
       </div>
       <div class="project-media">
         <div class="media-placeholder">
-          <video src="projvideos/Coin Toss Monte Carlo.mp4" autoplay loop muted playsinline></video>
+          <video autoplay loop muted playsinline preload="none">
+            <source src="https://res.cloudinary.com/dy2f3cngu/video/upload/q_auto/f_auto/v1776877767/Coin_Toss_Monte_Carlo_zj9sez.mov" type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
@@ -472,7 +574,9 @@ footer {
       </div>
       <div class="project-media">
         <div class="media-placeholder">
-          <video src="projvideos/Twitter Trend Tracker.mp4" autoplay loop muted playsinline></video>
+          <video autoplay loop muted playsinline preload="none">
+            <source src="https://res.cloudinary.com/dy2f3cngu/video/upload/q_auto/f_auto/v1776878429/Twitter_Trend_Tracker_q8va7i.mov" type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
@@ -487,7 +591,9 @@ footer {
       </div>
       <div class="project-media">
         <div class="media-placeholder">
-          <video src="projvideos/Bubbles.mp4" autoplay loop muted playsinline></video>
+          <video autoplay loop muted playsinline preload="none">
+            <source src="https://res.cloudinary.com/dy2f3cngu/video/upload/q_auto/f_auto/v1776878816/Bubbles_rvya6n.mov" type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
@@ -567,7 +673,7 @@ footer {
 </div>
 
 <footer>
- <p>© 2026 Mubashira Shaik</p>
+  <p>© 2026 Mubashira Shaik</p>
   <p>Made with code, chaos, and a little bit of emotional damage.</p>
 </footer>
 
