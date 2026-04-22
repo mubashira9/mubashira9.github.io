@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mubashira | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #111;
+  --paper: #fafaf8;
+  --mid: #444;
+  --light: #777;
+  --purple: #b0a0cc;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Kalam', cursive;
+  font-style: normal;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.75;
+  overflow-x: hidden;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+i, em, .project-type, .project-focus, .project-why {
+  font-style: normal;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #111;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  padding: 16px 0 12px;
+}
+
+nav a {
+  font-family: 'Caveat', cursive;
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  letter-spacing: 0.5px;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #fff;
+  transition: width 0.3s;
+}
+
+nav a:hover::after { width: 100%; }
+
+/* CONTAINER */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 120px 48px 80px;
+}
+
+/* HEADER */
+.header {
+  margin-bottom: 100px;
+}
+
+.header h1 {
+  font-family: 'Caveat', cursive;
+  font-size: 70px;
+  border-bottom: 4px solid var(--ink);
+  display: inline-block;
+}
+
+.subtitle {
+  font-size: 30px;
+  color: var(--mid);
+  margin-top: 10px;
+}
+
+.tagline {
+  font-size: 22px;
+  color: var(--purple);
+}
+
+/* SECTIONS */
+h2 {
+  font-family: 'Caveat', cursive;
+  font-size: 50px;
+  margin-top: 80px;
+  margin-bottom: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.section-intro {
+  color: var(--mid);
+  font-size: 20px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+/* PROJECT ALTERNATING LAYOUT */
+.project-item {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 70px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.project-item:nth-child(odd)  { flex-direction: row; }
+.project-item:nth-child(even) { flex-direction: row-reverse; }
+
+.project-text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* VIDEO PANEL */
+.project-media {
+  flex: 0 0 620px;
+  width: 620px;
+  flex-shrink: 0;
+}
+
+.project-item:nth-child(even) .project-text {
+  text-align: right;
+}
+
+.project-item:nth-child(even) .project-why {
+  border-left: none;
+  border-right: 2px solid var(--ink);
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.project-item h3 {
+  font-family: 'Caveat', cursive;
+  font-size: 38px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Project title link — no underline by default, slides in on hover */
+.project-item h3 a {
+  color: var(--ink);
+  text-decoration: none;
+  position: relative;
+}
+
+.project-item h3 a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--ink);
+  transition: width 0.3s ease;
+}
+
+.project-item h3:hover a::after {
+  width: 100%;
+}
+
+.project-item h3 .arrow {
+  font-size: 22px;
+  opacity: 0.4;
+  transition: opacity 0.2s, transform 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.project-item h3:hover .arrow {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+/* Even items are right-aligned — underline grows from right */
+.project-item:nth-child(even) h3 {
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+}
+
+.project-item:nth-child(even) h3 a::after {
+  left: auto;
+  right: 0;
+}
+
+.project-item:nth-child(even) h3:hover .arrow {
+  transform: translateX(-4px);
+}
+
+.project-type {
+  font-size: 17px;
+  color: var(--purple);
+  margin-bottom: 10px;
+}
+
+.project-desc {
+  color: var(--mid);
+  font-size: 19px;
+}
+
+.project-focus {
+  font-size: 17px;
+  color: var(--purple);
+  margin-top: 8px;
+}
+
+.project-why {
+  font-size: 17px;
+  margin-top: 8px;
+  padding-left: 12px;
+  border-left: 2px solid var(--ink);
+  color: var(--mid);
+}
+
+/* MEDIA BOX */
+.media-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #111;
+  border: 2px dashed rgba(0,0,0,0.2);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--light);
+  font-size: 13px;
+  overflow: hidden;
+  position: relative;
+}
+
+.media-placeholder .icon {
+  font-size: 28px;
+  opacity: 0.5;
+}
+
+.media-placeholder span {
+  font-size: 12px;
+  color: var(--light);
+  text-align: center;
+  padding: 0 10px;
+}
+
+.media-placeholder img,
+.media-placeholder video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  position: absolute;
+  top: 0; left: 0;
+}
+
+/* ABOUT */
+.about p {
+  color: var(--mid);
+  margin-top: 15px;
+  font-size: 19px;
+}
+
+/* SKILLS */
+.skills-category {
+  margin-top: 25px;
+}
+
+.skills-category h4 {
+  font-family: 'Caveat', cursive;
+  font-size: 28px;
+}
+
+.skills-flow {
+  margin-top: 8px;
+  font-size: 19px;
+}
+
+.skill-note {
+  font-size: 15px;
+  color: var(--purple);
+}
+
+/* CONTACT */
+.contact-line {
+  margin: 15px 0;
+  font-size: 19px;
+}
+
+.contact-line a {
+  text-decoration: none;
+  color: var(--ink);
+  font-weight: bold;
+  position: relative;
+  transition: color 0.25s;
+}
+
+.contact-line a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--ink);
+  transition: width 0.3s ease;
+}
+
+.contact-line a:hover { color: #444; }
+.contact-line a:hover::after { width: 100%; }
+
+/* FOOTER */
+footer {
+  background: #111;
+  color: #aaa;
+  text-align: center;
+  padding: 24px;
+  font-family: 'Kalam', cursive;
+  font-size: 16px;
+  margin-top: 80px;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .project-media {
+    flex: 0 0 420px;
+    width: 420px;
+  }
+}
+
+@media (max-width: 700px) {
+  nav { gap: 20px; }
+  .header h1 { font-size: 50px; }
+
+  .project-item,
+  .project-item:nth-child(even) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .project-media {
+    flex: none;
+    width: 100%;
+  }
+
+  .project-item:nth-child(even) .project-text {
+    text-align: left;
+  }
+
+  .project-item:nth-child(even) .project-why {
+    border-left: 2px solid var(--ink);
+    border-right: none;
+    padding-left: 12px;
+    padding-right: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#projects">Projects</a>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <section class="header">
+    <h1>Mubashira Shaik</h1>
+    <p class="subtitle">Computer Science Student</p>
+    <p class="tagline">Exploring the intersection of logic and creativity</p>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <p class="section-intro">A selection of things I've built and explored.</p>
+
+    <div class="project-item">
+      <div class="project-text">
+        <h3><a href="https://github.com/mubashira9/blood-bridge" target="_blank">Blood Bridge</a><span class="arrow">↗</span></h3>
+        <p class="project-type">Full-Stack · Location-Based Application</p>
+        <p class="project-desc">A platform connecting users with nearby blood donors based on availability.</p>
+        <p class="project-focus">Focused On: real-time matching and accessibility</p>
+        <p class="project-why">Built to explore how technology can reduce response time in emergencies.</p>
+      </div>
+      <div class="project-media">
+        <div class="media-placeholder">
+          <video src="projvideos/Blood Bridge.mp4" autoplay loop muted playsinline></video>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-text">
+        <h3><a href="https://github.com/mubashira9/my-only-saviour" target="_blank">My Only Saviour</a><span class="arrow">↗</span></h3>
+        <p class="project-type">AI-Powered Learning · Web Application</p>
+        <p class="project-desc">Transforms dense academic content into structured, interactive learning through summaries, quizzes, and visual diagrams.</p>
+        <p class="project-focus">Focused On: active recall, visual learning, and user-centric study experience</p>
+        <p class="project-why">Built to make studying less overwhelming by converting complex text into clear, engaging formats using AI.</p>
+      </div>
+      <div class="project-media">
+        <div class="media-placeholder">
+          <video src="projvideos/My Only Saviour.mp4" autoplay loop muted playsinline></video>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-text">
+        <h3><a href="https://github.com/mubashira9/Cosmic-Tracker" target="_blank">Cosmic Tracker</a><span class="arrow">↗</span></h3>
+        <p class="project-type">Inventory Management · Web Application</p>
+        <p class="project-desc">Manages and tracks inventory with real-time updates, stock monitoring, and data visualization.</p>
+        <p class="project-focus">Focused On: efficiency, data organization, and intuitive UI</p>
+        <p class="project-why">Built to streamline inventory tracking and explore clear, user-friendly data visualization techniques.</p>
+      </div>
+      <div class="project-media">
+        <div class="media-placeholder">
+          <video src="projvideos/Cosmic Tracker.mp4" autoplay loop muted playsinline></video>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-text">
+        <h3><a href="https://github.com/mubashira9/Coin-Toss-Monte-Carlo-Simulation" target="_blank">Coin Toss Monte Carlo</a><span class="arrow">↗</span></h3>
+        <p class="project-type">Data Science · Statistical Simulation</p>
+        <p class="project-desc">Simulated coin toss experiments to analyze probability distributions.</p>
+        <p class="project-focus">Focused On: understanding probability through simulation</p>
+        <p class="project-why">Built to explore how repeated simulations approximate real-world probabilities.</p>
+      </div>
+      <div class="project-media">
+        <div class="media-placeholder">
+          <video src="projvideos/Coin Toss Monte Carlo.mp4" autoplay loop muted playsinline></video>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-text">
+        <h3><a href="https://github.com/mubashira9/twitter-trend-tracker" target="_blank">Twitter Trend Tracker</a><span class="arrow">↗</span></h3>
+        <p class="project-type">Data Analytics · Machine Learning</p>
+        <p class="project-desc">Analyzes trending topics to detect patterns in public interest.</p>
+        <p class="project-focus">Focused On: extracting insights from real-time data</p>
+        <p class="project-why">Built to understand how data can reflect collective behavior over time.</p>
+      </div>
+      <div class="project-media">
+        <div class="media-placeholder">
+          <video src="projvideos/Twitter Trend Tracker.mp4" autoplay loop muted playsinline></video>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-text">
+        <h3><a href="https://github.com/mubashira9/Bubbles-Your-Dog-Chatbot" target="_blank">Bubbles – Your Dog Chatbot</a><span class="arrow">↗</span></h3>
+        <p class="project-type">AI · Chatbot Application</p>
+        <p class="project-desc">A chatbot designed to simulate playful and engaging interactions.</p>
+        <p class="project-focus">Focused On: conversational interaction and personality design</p>
+        <p class="project-why">Built to explore how personality can be expressed through conversational AI.</p>
+      </div>
+      <div class="project-media">
+        <div class="media-placeholder">
+          <video src="projvideos/Bubbles.mp4" autoplay loop muted playsinline></video>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <h2>About</h2>
+    <p>
+      I build bridges, sometimes literally like my platform Blood Bridge, and also between complex data and user-friendly insights.
+      Apart from being a Computer Science student, I also pursue a BS degree in Data Science and Applications from the Indian Institute of Technology, Madras.
+    </p>
+    <p>
+      I enjoy experimenting with new tools and am passionate about turning ideas from my lil brain into impactful digital experiences.
+      Whether it's developing web applications, designing scalable systems, or exploring AI-driven solutions, my work sits at the intersection of technology and purpose, proving the existence of solutions for real-world problems in areas like healthcare, education, and accessibility.
+    </p>
+    <p>
+      And when I'm not building, you'll probably find me crying about life and writing poems in my room.
+    </p>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <h2>Skills</h2>
+
+    <div class="skills-category">
+      <h4>Programming Languages</h4>
+      <p class="skills-flow">C · C++ · Java <span class="skill-note">(Proficient)</span> · Python <span class="skill-note">(Proficient)</span> · SQL</p>
+    </div>
+
+    <div class="skills-category">
+      <h4>Frameworks & Libraries</h4>
+      <p class="skills-flow">React.js · Node.js · Express.js · Flask · scikit-learn</p>
+    </div>
+
+    <div class="skills-category">
+      <h4>Databases & Cloud</h4>
+      <p class="skills-flow">Firebase · MongoDB · MySQL · Google Cloud · Supabase · Render</p>
+    </div>
+
+    <div class="skills-category">
+      <h4>Web & App Development</h4>
+      <p class="skills-flow">HTML · CSS · JavaScript</p>
+    </div>
+
+    <div class="skills-category">
+      <h4>AI / ML</h4>
+      <p class="skills-flow">Machine Learning Techniques & Practices · Computer Vision · Generative AI · Chatbots</p>
+    </div>
+
+    <div class="skills-category">
+      <h4>DevOps & Tools</h4>
+      <p class="skills-flow">Docker · Kubernetes · Git · GitHub · Notion · VS Code · Obsidian · Alice.org · Salesforce Trailhead</p>
+    </div>
+
+    <div class="skills-category">
+      <h4>Design & Prototyping</h4>
+      <p class="skills-flow">Figma · Canva · Adobe Suite</p>
+    </div>
+
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <h2>Contact</h2>
+
+    <div class="contact-line">
+      Email: <a href="mailto:shaikmubashira2006@gmail.com">shaikmubashira2006@gmail.com</a>
+    </div>
+
+    <div class="contact-line">
+      GitHub: <a href="https://github.com/mubashira9" target="_blank">github.com/mubashira9</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+ <p>© 2026 Mubashira Shaik</p>
+  <p>Made with code, chaos, and a little bit of emotional damage.</p>
+</footer>
+
+</body>
+</html>
